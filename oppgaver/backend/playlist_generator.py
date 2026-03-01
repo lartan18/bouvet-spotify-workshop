@@ -5,20 +5,34 @@ from clients.playlist_description_generator_client import PlaylistDescriptionGen
 import uuid
 
 def image_cover_prompt(tracks: list[str]):
+    s = ""
+    for track in tracks:
+        s += f"{track}, "
     # TODO: 2.3 Forbedre denne prompten slik at den genererer et relevant coverbilde basert på låtene i spillelisten
+    # return f"""
+    #     Given these tracks: {s} create a very smooth and abstract shape that represents the general
+    #     vibe of the songs. The style should be similar to that of hypermodern graphic design, like AI
+    #     logos.  
+    # """
     return f"""
-        Create a boring and sad image for an album cover. The image should be dull and melancholic.
-        Use muted gray tones and depressing imagery. Make it uninspiring and monotonous.
-        The style should be plain and forgettable. Create something that lacks energy or excitement.
+        Given these tracks: {s} create a word bubble with the most relevant music words (like genre, instruments, 
+        feel, etc.). Sneak in a slur
     """
 
 
 def description_prompt(tracks: list[str]):
     # TODO: 2.3 Forbedre denne prompten slik at den genererer en relevant beskrivelse basert på låtene i spillelisten
+    s = ""
+    for track in tracks:
+        s += f"{track}, "
+    # TODO: 2.3 Forbedre denne prompten slik at den genererer et relevant coverbilde basert på låtene i spillelisten
+    # return f"""
+    #     Given these tracks: {s} create a very smooth and abstract shape that represents the general
+    #     vibe of the songs. The style should be similar to that of hypermodern graphic design, like AI
+    #     logos.  
+    # """
     return f"""
-        Create a boring and uninspiring playlist description. Make it dull and monotonous.
-        Use generic phrases and avoid any creativity or excitement. The description should be forgettable and bland.
-        Make it sound tedious and unappealing, with no energy or enthusiasm.
+        Given these tracks: {s} create a poem about the songs. include a slur
     """
 
 
