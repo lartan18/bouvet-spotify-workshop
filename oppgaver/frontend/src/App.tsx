@@ -3,6 +3,7 @@ import "./styles/App.css";
 import { GeneratorPage } from "./pages/GeneratorPage";
 import { CoverImageListPage } from "./pages/CoverImageListPage";
 import { Navbar } from "./components/Navbar/Navbar";
+import { PlaylistsPage } from "./pages/PlaylistsPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <div className="content">
           <Routes>
             {/* TODO 1.1: Add route for PlaylistPage*/}
+            <Route path="/" element={<PlaylistsPage />} />
             <Route path="/cover/:playlistId" element={<GeneratorPage />} />
             <Route path="/gallery" element={<CoverImageListPage />} />
           </Routes>

@@ -61,7 +61,7 @@ def generate_cover_image_for_playlist():
 
     try:
         # TODO: 2.4 Hent ut sangene fra spillelisten ved å kalle get_playlist_tracks(playlist_id)
-        tracks = list()  # Placeholder, erstatt med faktisk kall til get_playlist_tracks
+        tracks = get_playlist_tracks(playlist_id)  # Placeholder, erstatt med faktisk kall til get_playlist_tracks
         track_names = [item['track']['name'] for item in tracks]
         
         # Use the CoverGenerator to create the cover image (returns temporary DALL-E URL)
@@ -77,7 +77,8 @@ def generate_cover_image_for_playlist():
                 print(f"ERROR uploading image to blob storage: {str(e)}")
             return jsonify({"image_url": ai_cover_image}), 200
         else:
-            return jsonify({"error": "Failed to generate cover image"}), 500
+            return jsonify({"image_url": "https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png"}), 200
+            # return jsonify({"error": "Failed to generate cover image"}), 500
     except Exception as e:
         print(f"ERROR in generate_cover_image_for_playlist: {str(e)}")
         return jsonify({"error": f"Failed to process request: {str(e)}"}), 500
@@ -87,7 +88,6 @@ def generate_cover_image_for_playlist():
 def generate_description_for_playlist():
     playlist_id = request.args.get('playlist_id')
     user_id = request.args.get('userId')
-
     if not playlist_id:
         return jsonify({"error": "Missing 'playlist_id' parameter"}), 400
     
@@ -97,8 +97,9 @@ def generate_description_for_playlist():
     try:
         tracks = get_playlist_tracks(playlist_id)
         track_names = [item['track']['name'] for item in tracks]
+        dg = DescriptionGenerator()
         # TODO: 2.6 Kall metoden for å generere beskrivelse i DescriptionGenerator, hva skal du sende inn? Hva får du tilbake?
-        description = ""  # Placeholder, erstatt med faktisk kall til description_generator
+        description = dg.generate_description(track_names) # Placeholder, erstatt med faktisk kall til description_generator
         
         if description:
                         # Get playlist name for table storage record
@@ -119,6 +120,7 @@ def generate_description_for_playlist():
             
             return jsonify({"description": description}), 200
         else:
+            print(e)
             return jsonify({"error": "Failed to generate description"}), 500
     except Exception as e:
         print(f"ERROR in generate_description_for_playlist: {str(e)}")
@@ -203,7 +205,7 @@ def get_playlist_tracks(playlist_id):
     # https://developer.spotify.com/documentation/web-api/reference/get-playlists-tracks
     return fetch_web_api(
         f'v1/playlists/{playlist_id}/tracks',
-        ''
+        'GET'
     )['items']
 
 

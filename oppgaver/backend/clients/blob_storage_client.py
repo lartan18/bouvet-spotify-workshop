@@ -4,6 +4,7 @@ import base64
 from io import BytesIO
 from azure.storage.blob import BlobServiceClient, ContentSettings
 import requests
+import random
 
 
 class BlobStorageClient:
@@ -51,7 +52,7 @@ class BlobStorageClient:
             # TODO: 2.4 Lag et unikt navn for blobben som skal lagres i Azure Blob Storage
             # pattern: "covers/{user_id}/{playlist_id}.png"
             
-            blob_name = f""
+            blob_name = f"covers/{user_id}/{playlist_id}.png"
             
             # Upload to blob storage
             blob_client = self.blob_service_client.get_blob_client(
@@ -99,7 +100,7 @@ class BlobStorageClient:
         try:
             prefix = f"covers/{user_id}/"
             # TODO: 2.5 Hent ut alle blobs for denne brukeren ved å bruke list_blobs med name_starts_with=prefix
-            blob_list = []  # Placeholder, erstatt med faktisk kall til list_blobs
+            blob_list = self.container_client.list_blobs(name_starts_with=prefix)  # Placeholder, erstatt med faktisk kall til list_blobs
             
             cover_images = []
             for blob in blob_list:

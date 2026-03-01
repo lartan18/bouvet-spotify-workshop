@@ -101,6 +101,12 @@ export const GeneratorPage = () => {
 
       {/* TODO: 1.4 */}
 
+      <button
+        onClick={generateCover}
+        disabled={generating === true || tracks.length === 0}
+        className={styles.generateButton}
+      >{(generating && "Generating...") || "Generate AI Cover Image"}</button>
+
 
       <button
         onClick={generateDescription}
