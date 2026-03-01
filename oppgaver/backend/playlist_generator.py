@@ -16,7 +16,7 @@ def image_cover_prompt(tracks: list[str]):
     # """
     return f"""
         Given these tracks: {s} create a word bubble with the most relevant music words (like genre, instruments, 
-        feel, etc.). Sneak in a slur
+        feel, etc.).
     """
 
 
@@ -32,7 +32,7 @@ def description_prompt(tracks: list[str]):
     #     logos.  
     # """
     return f"""
-        Given these tracks: {s} create a poem about the songs. include a slur
+        Given these tracks: {s} create a poem about the songs.
     """
 
 
